@@ -1,0 +1,193 @@
+/* Cases Section Styles */
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.case-item {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.case-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+    transition: 0.6s;
+}
+
+.case-item:hover::before {
+    left: 100%;
+}
+
+.case-item:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--neon-blue);
+    box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+}
+
+.case-image {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.case-item img {
+    width: 100%;
+    max-width: 250px;
+    height: 200px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.5));
+}
+
+.case-item:hover img {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.8));
+}
+
+.case-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.case-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.case-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px var(--gold);
+}
+
+.case-items-count {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.open-case-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.open-case-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 243, 255, 0.4);
+}
+
+/* Case Rarity Badges */
+.case-rarity {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 3;
+}
+
+.rarity-common { background: #b0b0b0; color: #333; }
+.rarity-uncommon { background: #00ff00; color: #333; }
+.rarity-rare { background: #0070ff; color: white; }
+.rarity-epic { background: #a335ee; color: white; }
+.rarity-legendary { background: #ff8000; color: white; }
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-state h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--neon-blue);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .cases-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .cases-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .case-item {
+        min-height: 350px;
+        padding: 1.5rem;
+    }
+    
+    .case-item img {
+        max-width: 200px;
+        height: 150px;
+    }
+    
+    .case-item h3 {
+        font-size: 1.3rem;
+    }
+    
+    .case-price {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cases-grid {
+        padding: 0.5rem;
+    }
+    
+    .case-item {
+        padding: 1rem;
+        min-height: 300px;
+    }
+    
+    .case-item img {
+        max-width: 180px;
+        height: 120px;
+    }
+}

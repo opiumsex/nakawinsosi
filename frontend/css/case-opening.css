@@ -1,0 +1,352 @@
+/* Case Opening Styles */
+.case-opening-modal {
+    max-width: 900px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.case-opening-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(45deg, rgba(0, 243, 255, 0.1), rgba(185, 103, 255, 0.1));
+    border-bottom: 2px solid var(--neon-blue);
+}
+
+.case-opening-balance {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.case-opening-content {
+    padding: 2rem;
+    position: relative;
+}
+
+.case-scroll-container {
+    position: relative;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 2px solid var(--neon-purple);
+}
+
+.case-items-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.1s linear;
+}
+
+.case-item-slide {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.case-item-slide img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.case-item-slide .item-name {
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--text-light);
+}
+
+.case-pointer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    z-index: 10;
+}
+
+.pointer-arrow {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: var(--gold);
+    text-shadow: 0 0 10px var(--gold);
+}
+
+.case-opening-info {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.spinning-text {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--neon-blue);
+    margin-bottom: 0.5rem;
+}
+
+.case-timer {
+    font-size: 1.1rem;
+    color: var(--neon-green);
+}
+
+.case-opening-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Deposit Modal Styles */
+.deposit-modal {
+    max-width: 600px;
+}
+
+.deposit-content {
+    padding: 1.5rem;
+}
+
+.deposit-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.bank-card {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    color: white;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.bank-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.card-chip {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.card-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+}
+
+.card-holder {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.bank-name {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.warning-box {
+    display: flex;
+    align-items: flex-start;
+    background: rgba(255, 193, 7, 0.1);
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.warning-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.warning-text {
+    flex: 1;
+}
+
+.user-nick-example {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    font-family: 'Courier New', monospace;
+    border: 1px dashed #ffc107;
+}
+
+/* Prize Modal Styles */
+.prize-modal {
+    max-width: 500px;
+}
+
+.prize-header {
+    text-align: center;
+    padding: 2rem 2rem 1rem;
+}
+
+.confetti {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.prize-rarity {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.prize-rarity.common { background: #b0b0b0; color: #333; }
+.prize-rarity.uncommon { background: #00ff00; color: #333; }
+.prize-rarity.rare { background: #0070ff; color: white; }
+.prize-rarity.epic { background: #a335ee; color: white; }
+.prize-rarity.legendary { background: #ff8000; color: white; }
+
+.prize-content {
+    padding: 0 2rem 2rem;
+    text-align: center;
+}
+
+.prize-image-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 1.5rem;
+}
+
+.prize-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+    position: relative;
+}
+
+.prize-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
+    opacity: 0.3;
+    animation: pulseGlow 2s infinite;
+}
+
+.prize-info h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.prize-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.prize-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.prize-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 0 2rem 2rem;
+}
+
+.prize-actions .btn {
+    flex: 1;
+}
+
+/* Animations */
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes scrollCase {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-1000px); }
+}
+
+.case-spinning {
+    animation: scrollCase 0.1s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .case-opening-modal,
+    .deposit-modal,
+    .prize-modal {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+    }
+    
+    .case-item-slide {
+        flex: 0 0 150px;
+    }
+    
+    .prize-actions {
+        flex-direction: column;
+    }
+    
+    .deposit-step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .step-number {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        align-self: center;
+    }
+}

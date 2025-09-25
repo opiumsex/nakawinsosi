@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nakawin Casino</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/rounded.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/cases.css">
+</head>
+<body>
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content auth-modal">
+            <div class="auth-header">
+                <h2>Nakawin Casino</h2>
+                <p>Игровое казино с призами</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn btn-glow btn-rounded active" data-tab="login">Вход</button>
+                <button class="auth-tab-btn btn-glow btn-rounded" data-tab="register">Регистрация</button>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginTab" class="auth-tab-content active">
+                <div class="input-group">
+                    <input type="text" id="loginUsername" placeholder="Имя пользователя" class="input-field input-rounded">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Пароль" class="input-field input-rounded">
+                </div>
+                <button id="loginBtn" class="btn-glow btn-rounded btn-full">Войти</button>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerTab" class="auth-tab-content">
+                <div class="input-group">
+                    <input type="text" id="registerUsername" placeholder="Имя пользователя" class="input-field input-rounded">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" placeholder="Пароль" class="input-field input-rounded">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="registerGameNick" placeholder="Игровой никнейм" class="input-field input-rounded">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="registerGameServer" placeholder="Игровой сервер" class="input-field input-rounded">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="registerBankAccount" placeholder="Банковский счет" class="input-field input-rounded">
+                </div>
+                <button id="registerBtn" class="btn-glow btn-rounded btn-full">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <img src="images/nakawin.png" alt="Nakawin">
+                <span class="logo-text">Nakawin</span>
+            </div>
+            <div class="user-info">
+                <span class="balance" id="userBalance">1000</span>
+                <button class="btn-glow btn-rounded" id="depositBtn">Пополнить</button>
+                <div class="user-avatar" id="userAvatar"></div>
+                <span id="usernameDisplay"></span>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-btn btn-glow btn-rounded active" data-tab="cases">
+                <i class="tab-icon"></i> Кейсы
+            </button>
+            <button class="nav-btn btn-glow btn-rounded" data-tab="wheel">
+                <i class="tab-icon"></i> Колесо
+            </button>
+            <button class="nav-btn btn-glow btn-rounded" data-tab="inventory">
+                <i class="tab-icon"></i> Инвентарь
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Cases Tab -->
+            <div id="casesTab" class="tab-panel active">
+                <div class="section-header">
+                    <h2>Кейсы</h2>
+                    <p>Открывайте кейсы и получайте уникальные предметы</p>
+                </div>
+                <div class="cases-grid" id="casesContainer">
+                    <!-- Кейсы будут загружены через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Wheel Tab -->
+            <div id="wheelTab" class="tab-panel">
+                <div class="section-header">
+                    <h2>Колесо Фортуны</h2>
+                    <p>Крутите колесо и выигрывайте призы</p>
+                </div>
+                <div class="wheel-container">
+                    <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                    <div class="wheel-pointer"></div>
+                    <button id="spinBtn" class="btn-glow btn-rounded spin-btn">GO</button>
+                </div>
+            </div>
+
+            <!-- Inventory Tab -->
+            <div id="inventoryTab" class="tab-panel">
+                <div class="section-header">
+                    <h2>Инвентарь</h2>
+                    <p>Ваши выигранные предметы</p>
+                </div>
+                <div class="inventory-grid" id="inventoryContainer">
+                    <!-- Инвентарь будет загружен через JavaScript -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Prize Modal -->
+        <div id="prizeModal" class="modal hidden">
+            <div class="modal-content prize-content">
+                <div class="prize-header">
+                    <h3>Поздравляем!</h3>
+                </div>
+                <img id="prizeImage" src="" alt="Prize" class="prize-image">
+                <h3 id="prizeName" class="prize-name"></h3>
+                <p class="prize-value">Стоимость: <span id="prizeValue">0</span> монет</p>
+                <div class="prize-actions">
+                    <button class="btn-glow btn-rounded btn-success" id="sellPrizeBtn">Продать</button>
+                    <button class="btn-glow btn-rounded btn-secondary" id="keepPrizeBtn">Оставить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deposit Modal -->
+<!-- Модальное окно пополнения баланса -->
+<div id="depositModal" class="modal hidden">
+    <div class="modal-content deposit-modal">
+        <div class="modal-header">
+            <h3>💳 Пополнение баланса</h3>
+            <button class="modal-close btn-close">&times;</button>
+        </div>
+        
+        <div class="deposit-content">
+            <div class="deposit-info">
+                <div class="deposit-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Переведите средства</h4>
+                        <div class="bank-card">
+                            <div class="card-chip">💳</div>
+                            <div class="card-number">1234 5678 9012 3456</div>
+                            <div class="card-holder">NAKAWIN CASINO</div>
+                        </div>
+                        <p class="bank-name">Тинькофф Банк</p>
+                    </div>
+                </div>
+
+                <div class="deposit-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Укажите ник в комментарии</h4>
+                        <div class="warning-box">
+                            <div class="warning-icon">⚠️</div>
+                            <div class="warning-text">
+                                <strong>ОБЯЗАТЕЛЬНО укажите в комментарии к переводу:</strong>
+                                <div class="user-nick-example" id="userNickExample"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="deposit-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Подтвердите оплату</h4>
+                        <p>После перевода нажмите кнопку "Подтвердить оплату"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deposit-actions">
+                <button class="btn-glow btn-success btn-rounded btn-full" id="confirmDepositBtn">
+                    ✅ Подтвердить оплату
+                </button>
+                <button class="btn-outline btn-rounded btn-full" id="cancelDepositBtn">
+                    ❌ Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно открытия кейса -->
+<div id="caseOpeningModal" class="modal hidden">
+    <div class="modal-content case-opening-modal">
+        <div class="case-opening-header">
+            <h3>🎁 Открытие кейса</h3>
+            <div class="case-opening-balance">
+                Баланс: <span id="caseOpeningBalance">0</span> монет
+            </div>
+        </div>
+        
+        <div class="case-opening-content">
+            <div class="case-scroll-container">
+                <div class="case-items-track" id="caseItemsTrack">
+                    <!-- Предметы будут добавлены через JavaScript -->
+                </div>
+                <div class="case-pointer">
+                    <div class="pointer-arrow">▼</div>
+                </div>
+            </div>
+            
+            <div class="case-opening-info">
+                <div class="spinning-text" id="spinningText">Готов к открытию...</div>
+                <div class="case-timer" id="caseTimer"></div>
+            </div>
+        </div>
+
+        <div class="case-opening-actions">
+            <button class="btn-glow btn-rounded" id="startCaseOpening">
+                🎯 Крутить за <span id="casePrice">100</span> монет
+            </button>
+            <button class="btn-outline btn-rounded" id="cancelCaseOpening">
+                ❌ Отмена
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно выигрыша -->
+<div id="prizeModal" class="modal hidden">
+    <div class="modal-content prize-modal">
+        <div class="prize-header">
+            <div class="confetti">🎉</div>
+            <h3>Поздравляем!</h3>
+            <div class="prize-rarity" id="prizeRarity">ОБЫЧНЫЙ</div>
+        </div>
+        
+        <div class="prize-content">
+            <div class="prize-image-container">
+                <img id="prizeImage" src="" alt="Приз" class="prize-image">
+                <div class="prize-glow"></div>
+            </div>
+            
+            <div class="prize-info">
+                <h4 id="prizeName">Название приза</h4>
+                <div class="prize-value">💎 Стоимость: <span id="prizeValue">0</span> монет</div>
+                <div class="prize-description" id="prizeDescription">Описание приза</div>
+            </div>
+        </div>
+
+        <div class="prize-actions">
+            <button class="btn-glow btn-success btn-rounded" id="sellPrizeBtn">
+                💰 Продать за <span id="sellPrice">0</span> монет
+            </button>
+            <button class="btn-glow btn-secondary btn-rounded" id="keepPrizeBtn">
+                📦 Оставить в инвентаре
+            </button>
+        </div>
+    </div>
+</div>
+
+    <!-- Notifications Container -->
+    <div id="notifications"></div>
+
+    <script src="js/tabs.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/cases.js"></script>
+    <script src="js/wheel.js"></script>
+    <script src="js/inventory.js"></script>
+    <script>
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            window.tabManager = new TabManager();
+            
+            // Инициализация аутентификации
+            if (typeof Auth !== 'undefined') {
+                window.auth = new Auth();
+            }
+        });
+    </script>
+</body>
+</html>
