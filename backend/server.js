@@ -11,9 +11,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// Debug middleware
+// Логирование для продакшена
 app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} ${req.method} ${req.path}`);
+    if (process.env.NODE_ENV === 'production') {
+        console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+    }
     next();
 });
 
@@ -23,13 +25,27 @@ app.use('/api/cases', require('./routes/cases'));
 app.use('/api/wheel', require('./routes/wheel'));
 app.use('/api/inventory', require('./routes/inventory'));
 
-// MongoDB connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/nakawin';
-const JWT_SECRET = process.env.JWT_SECRET || 'default-secret-key-change-in-production';
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV 
+    });
+});
 
-console.log('🔧 Конфигурация:');
-console.log('MONGODB_URI:', MONGODB_URI ? 'Установлен' : 'Не установлен');
-console.log('JWT_SECRET:', JWT_SECRET ? 'Установлен' : 'Используется по умолчанию');
+// Serve frontend for all other routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
+// MongoDB connection
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+    console.error('❌ MONGODB_URI не установлен');
+    process.exit(1);
+}
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
@@ -37,64 +53,40 @@ mongoose.connect(MONGODB_URI, {
 })
 .then(() => {
     console.log('✅ Успешное подключение к MongoDB');
-    initializeDefaultData();
+    console.log('📍 База данных:', mongoose.connection.name);
 })
 .catch((error) => {
-    console.error('❌ Ошибка подключения к MongoDB:', error);
+    console.error('❌ Ошибка подключения к MongoDB:', error.message);
+    process.exit(1);
 });
 
-// Serve frontend
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+// Обработка ошибок MongoDB
+mongoose.connection.on('error', err => {
+    console.error('❌ Ошибка MongoDB:', err);
 });
 
-async function initializeDefaultData() {
-    try {
-        const Wheel = require('./models/Wheel');
-        const { Case } = require('./models/Case');
-        const User = require('./models/User');
-        
-        // Check if admin user exists
-        const adminUser = await User.findOne({ username: 'admin' });
-        if (!adminUser) {
-            const defaultAdmin = new User({
-                username: 'admin',
-                password: 'admin123',
-                gameNickname: 'admin',
-                gameServer: 'main',
-                bankAccount: '0000000000',
-                role: 'admin'
-            });
-            await defaultAdmin.save();
-            console.log('👑 Создан администратор: admin / admin123');
-        }
+mongoose.connection.on('disconnected', () => {
+    console.log('⚠️  Отключение от MongoDB');
+});
 
-        // Create default wheel
-        const existingWheel = await Wheel.findOne({ isActive: true });
-        if (!existingWheel) {
-            const defaultWheel = new Wheel({
-                name: "Колесо Фортуны",
-                segments: [
-                    { name: "100 монет", value: 100, chance: 30, color: "#FF6B6B" },
-                    { name: "500 монет", value: 500, chance: 10, color: "#4ECDC4" },
-                    { name: "50 монет", value: 50, chance: 40, color: "#45B7D1" },
-                    { name: "1000 монет", value: 1000, chance: 5, color: "#96CEB4" },
-                    { name: "200 монет", value: 200, chance: 20, color: "#FFEAA7" },
-                    { name: "Случайный предмет", value: 250, chance: 15, color: "#DDA0DD" }
-                ]
-            });
-            await defaultWheel.save();
-            console.log('🎡 Создано колесо фортуны');
-        }
-
-        console.log('✅ Инициализация данных завершена');
-    } catch (error) {
-        console.error('❌ Ошибка инициализации данных:', error);
-    }
-}
+// Graceful shutdown
+process.on('SIGINT', async () => {
+    console.log('\n🛑 Получен SIGINT. Завершение работы...');
+    await mongoose.connection.close();
+    console.log('✅ Соединение с MongoDB закрыто');
+    process.exit(0);
+});
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Сервер запущен на порту ${PORT}`);
-    console.log(`📍 Откройте http://localhost:${PORT}`);
+    console.log(`🌐 Окружение: ${process.env.NODE_ENV}`);
+    console.log(`📍 URL: http://localhost:${PORT}`);
+    
+    if (process.env.NODE_ENV === 'production') {
+        console.log('📊 Режим: PRODUCTION');
+    } else {
+        console.log('🔧 Режим: DEVELOPMENT');
+    }
 });
