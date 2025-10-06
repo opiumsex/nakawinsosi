@@ -1,112 +1,99 @@
 const express = require('express');
-const auth = require('../middleware/auth');
-const { Case } = require('../models/Case');
+const Case = require('../models/Case');
 const User = require('../models/User');
-const InventoryItem = require('../models/Inventory');
+const Inventory = require('../models/Inventory');
+const auth = require('../middleware/auth');
+const logger = require('../utils/logger');
 const router = express.Router();
 
-// Получить все кейсы (публичный доступ)
+// Get all cases
 router.get('/', async (req, res) => {
     try {
         const cases = await Case.find({ isActive: true });
-        res.json({ 
-            success: true,
-            cases 
-        });
+        logger.info(`Sent ${cases.length} cases to client`);
+        res.json(cases);
     } catch (error) {
-        console.error('Get cases error:', error);
-        res.status(500).json({ 
-            success: false,
-            message: 'Ошибка сервера' 
-        });
+        logger.error('Error fetching cases: ' + error.message);
+        res.status(500).json({ message: 'Ошибка сервера' });
     }
 });
 
-// Открыть кейс (требуется аутентификация)
+// Open case
 router.post('/open/:caseId', auth, async (req, res) => {
     try {
         const user = await User.findById(req.userId);
-        const caseData = await Case.findById(req.params.caseId);
-        
         if (!user) {
-            return res.status(401).json({ 
-                success: false,
-                message: 'Пользователь не найден' 
-            });
+            logger.error(`User not found: ${req.userId}`);
+            return res.status(404).json({ message: 'Пользователь не найден' });
         }
 
+        const caseData = await Case.findById(req.params.caseId);
         if (!caseData) {
-            return res.status(404).json({ 
-                success: false,
-                message: 'Кейс не найден' 
-            });
+            logger.error(`Case not found: ${req.params.caseId}`);
+            return res.status(404).json({ message: 'Кейс не найден' });
         }
-
+        
         if (user.balance < caseData.price) {
-            return res.status(400).json({ 
-                success: false,
-                message: 'Недостаточно средств' 
-            });
+            logger.warn(`Insufficient balance for case: ${user.username} - ${user.balance} < ${caseData.price}`);
+            return res.status(400).json({ message: 'Недостаточно средств' });
         }
-
-        // Рассчитываем случайный предмет на основе шансов
-        const totalChance = caseData.items.reduce((sum, item) => sum + item.chance, 0);
+        
+        // Calculate drop based on chances
+        const totalChance = caseData.items.reduce((sum, item) => sum + item.dropChance, 0);
         const random = Math.random() * totalChance;
         
-        let accumulatedChance = 0;
-        let selectedItem = null;
-
+        let current = 0;
+        let wonItem = null;
+        
         for (const item of caseData.items) {
-            accumulatedChance += item.chance;
-            if (random <= accumulatedChance) {
-                selectedItem = item;
+            current += item.dropChance;
+            if (random <= current) {
+                wonItem = item;
                 break;
             }
         }
 
-        if (!selectedItem) {
-            selectedItem = caseData.items[0];
+        if (!wonItem) {
+            wonItem = caseData.items[0];
+            logger.warn('Fallback to first item in case');
         }
-
-        // Обновляем баланс пользователя
-        user.balance -= caseData.price;
         
-        // Добавляем предмет в инвентарь
-        const inventoryItem = new InventoryItem({
-            userId: user._id,
-            itemName: selectedItem.name,
-            itemImage: selectedItem.image || '/images/default-item.png',
-            itemValue: selectedItem.value,
-            itemType: 'case',
-            obtainedFrom: `case_${caseData._id}`,
-            rarity: this.calculateRarity(selectedItem.value)
-        });
-
-        await inventoryItem.save();
+        // Deduct balance
+        user.balance -= caseData.price;
         await user.save();
-
-        res.json({ 
-            success: true,
-            item: selectedItem,
-            newBalance: user.balance,
-            message: `Вы получили: ${selectedItem.name}`
+        
+        // Add to inventory
+        const inventoryItem = new Inventory({
+            user: user._id,
+            item: {
+                name: wonItem.name,
+                image: wonItem.image,
+                price: wonItem.price,
+                type: 'case'
+            }
         });
+        await inventoryItem.save();
+        
+        user.inventory.push({ item: inventoryItem._id });
+        await user.save();
+        
+        // Log the case opening
+        logger.caseOpen(user.username, caseData.name, wonItem.name, `Price: ${wonItem.price}, New Balance: ${user.balance}`);
+        
+        res.json({
+            wonItem: {
+                _id: inventoryItem._id,
+                name: wonItem.name,
+                image: wonItem.image,
+                price: wonItem.price
+            },
+            newBalance: user.balance
+        });
+        
     } catch (error) {
-        console.error('Open case error:', error);
-        res.status(500).json({ 
-            success: false,
-            message: 'Ошибка при открытии кейса' 
-        });
+        logger.error('Case opening error: ' + error.message);
+        res.status(500).json({ message: 'Ошибка сервера при открытии кейса' });
     }
 });
-
-// Вспомогательная функция для определения редкости
-router.calculateRarity = (value) => {
-    if (value >= 1000) return 'legendary';
-    if (value >= 500) return 'epic';
-    if (value >= 200) return 'rare';
-    if (value >= 100) return 'uncommon';
-    return 'common';
-};
 
 module.exports = router;

@@ -1,23 +1,43 @@
 class Notifications {
-    static show(message, type = 'info') {
+    constructor() {
+        this.container = document.getElementById('notifications');
+    }
+
+    show(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
         notification.innerHTML = `
-            <span class="notification-close">&times;</span>
-            <div>${message}</div>
+            ${message}
+            <button class="notification-close">&times;</button>
         `;
 
-        document.getElementById('notifications').appendChild(notification);
+        this.container.appendChild(notification);
 
         // Auto remove after 4 seconds
-        const autoRemove = setTimeout(() => {
-            notification.remove();
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }
         }, 4000);
 
-        // Manual remove on click
+        // Close button
         notification.querySelector('.notification-close').addEventListener('click', () => {
-            clearTimeout(autoRemove);
-            notification.remove();
+            notification.style.animation = 'slideOutRight 0.3s ease forwards';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
         });
     }
+}
+
+function showNotification(message, type = 'info') {
+    const notifications = new Notifications();
+    notifications.show(message, type);
 }

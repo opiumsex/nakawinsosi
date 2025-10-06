@@ -1,107 +1,121 @@
 class Inventory {
-    static init() {
-        this.loadInventory();
+    constructor() {
+        this.items = [];
+        this.selectedItem = null;
+        this.init();
     }
 
-    static async loadInventory() {
+    async init() {
+        await this.loadInventory();
+        this.setupEventListeners();
+    }
+
+    async loadInventory() {
         try {
             const response = await fetch('/api/inventory', {
-                headers: {
-                    'Authorization': `Bearer ${auth.token}`
-                }
+                headers: auth.getAuthHeaders()
             });
             
-            const inventory = await response.json();
-            this.renderInventory(inventory);
+            if (response.ok) {
+                this.items = await response.json();
+                this.renderInventory();
+            } else {
+                showNotification('Ошибка загрузки инвентаря', 'error');
+            }
         } catch (error) {
             console.error('Error loading inventory:', error);
+            showNotification('Ошибка загрузки инвентаря', 'error');
         }
     }
 
-    static renderInventory(inventory) {
-        const container = document.getElementById('inventoryContainer');
+    renderInventory() {
+        const grid = document.getElementById('inventoryGrid');
+        const itemsCount = document.getElementById('itemsCount');
         
-        if (inventory.length === 0) {
-            container.innerHTML = '<p>Инвентарь пуст</p>';
+        grid.innerHTML = '';
+        itemsCount.textContent = this.items.length;
+
+        if (this.items.length === 0) {
+            grid.innerHTML = '<div class="empty-inventory">Инвентарь пуст</div>';
             return;
         }
 
-        container.innerHTML = inventory.map(item => `
-            <div class="inventory-item" data-item-id="${item._id}">
-                <img src="${item.itemImage}" alt="${item.itemName}">
-                <h4>${item.itemName}</h4>
-                <p>Стоимость: ${item.itemValue} монет</p>
-                <div class="item-actions">
-                    <button class="btn-glow sell-item">Продать</button>
-                    <button class="btn-glow withdraw-item">Вывести</button>
+        this.items.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'inventory-item';
+            itemElement.setAttribute('data-item-id', item._id);
+            itemElement.innerHTML = `
+                <div class="item-content">
+                    <img src="${item.item.image}" alt="${item.item.name}" onerror="this.src='/images/items/default.png'">
+                    <h4>${item.item.name}</h4>
+                    <p class="item-price">${item.item.price} ₽</p>
                 </div>
-            </div>
-        `).join('');
-
-        this.setupItemEventListeners();
-    }
-
-    static setupItemEventListeners() {
-        document.querySelectorAll('.sell-item').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const itemElement = e.target.closest('.inventory-item');
-                this.sellItem(itemElement.dataset.itemId);
-            });
-        });
-
-        document.querySelectorAll('.withdraw-item').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const itemElement = e.target.closest('.inventory-item');
-                this.withdrawItem(itemElement.dataset.itemId);
-            });
+                <div class="item-actions">
+                    <button class="btn-secondary sell-btn" onclick="inventory.sellItem('${item._id}')">Продать</button>
+                    <button class="btn-primary withdraw-btn" onclick="inventory.withdrawItem('${item._id}')">Вывести</button>
+                </div>
+            `;
+            grid.appendChild(itemElement);
         });
     }
 
-    static async sellItem(itemId) {
+    async sellItem(itemId) {
         try {
             const response = await fetch(`/api/inventory/sell/${itemId}`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${auth.token}`
-                }
+                headers: auth.getAuthHeaders()
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                auth.updateBalance(data.newBalance);
-                this.loadInventory();
-                Notifications.show('Предмет продан', 'success');
+                showNotification('Предмет продан', 'success');
+                if (auth.user) {
+                    auth.user.balance = data.newBalance;
+                    auth.updateUI();
+                }
+                await this.loadInventory();
             } else {
-                Notifications.show(data.message, 'error');
+                showNotification(data.message, 'error');
             }
         } catch (error) {
-            Notifications.show('Ошибка продажи предмета', 'error');
+            console.error('Sell item error:', error);
+            showNotification('Ошибка продажи предмета', 'error');
         }
     }
 
-    static async withdrawItem(itemId) {
-        if (!confirm('Вы уверены, что хотите вывести этот предмет?')) return;
-
+    async withdrawItem(itemId) {
         try {
             const response = await fetch(`/api/inventory/withdraw/${itemId}`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${auth.token}`
-                }
+                headers: auth.getAuthHeaders()
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                this.loadInventory();
-                console.log(`Игрок ${auth.user.username} запросил вывод предмета: ${data.itemName}`);
-                Notifications.show('Запрос на вывод отправлен', 'success');
+                showNotification('Запрос на вывод отправлен', 'success');
+                await this.loadInventory();
+                
+                console.log(`=== WITHDRAWAL REQUEST ===`);
+                console.log(`User: ${auth.user.username}`);
+                console.log(`Item: ${this.items.find(item => item._id === itemId)?.item.name}`);
+                console.log(`Timestamp: ${new Date().toISOString()}`);
+                console.log(`========================`);
             } else {
-                Notifications.show(data.message, 'error');
+                showNotification(data.message, 'error');
             }
         } catch (error) {
-            Notifications.show('Ошибка вывода предмета', 'error');
+            console.error('Withdraw item error:', error);
+            showNotification('Ошибка вывода предмета', 'error');
         }
     }
+
+    setupEventListeners() {
+        document.querySelector('[data-tab="inventory"]').addEventListener('click', () => {
+            this.loadInventory();
+        });
+    }
 }
+
+const inventory = new Inventory();

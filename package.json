@@ -1,28 +1,23 @@
 {
   "name": "nakawin-casino",
   "version": "1.0.0",
-  "description": "Online casino with virtual prizes",
+  "description": "Online casino with prize system",
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js",
-    "build": "npm install",
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "dev": "nodemon backend/server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "mongoose": "^7.5.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.20.0",
+    "mongoose": "^7.5.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  },
-  "keywords": ["casino", "gaming", "prizes"],
-  "author": "Nakawin Team",
-  "license": "MIT"
+  }
 }

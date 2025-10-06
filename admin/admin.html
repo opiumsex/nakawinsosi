@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nakawin Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background: #081119; color: white; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab { padding: 10px 20px; background: #0d1b2a; border: 1px solid #00ffff; cursor: pointer; border-radius: 10px; }
+        .tab.active { background: #00ffff; color: #081119; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .form-group { margin-bottom: 15px; }
+        input, textarea, select { width: 100%; padding: 10px; background: #0d1b2a; border: 1px solid #00ffff; color: white; border-radius: 5px; }
+        button { padding: 10px 20px; background: #00ffff; color: #081119; border: none; border-radius: 5px; cursor: pointer; }
+        .items-list { margin-top: 20px; }
+        .item { background: #0d1b2a; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #00ffff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nakawin Admin Panel</h1>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="cases">Кейсы</div>
+            <div class="tab" data-tab="wheel">Колесо</div>
+        </div>
+
+        <div id="casesTab" class="tab-content active">
+            <h2>Управление кейсами</h2>
+            <form id="caseForm">
+                <div class="form-group">
+                    <input type="text" id="caseName" placeholder="Название кейса" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="caseImage" placeholder="URL изображения" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="casePrice" placeholder="Цена" required>
+                </div>
+                <h3>Предметы в кейсе</h3>
+                <div id="caseItems">
+                    <div class="case-item">
+                        <input type="text" placeholder="Название предмета" class="item-name" required>
+                        <input type="text" placeholder="URL изображения" class="item-image" required>
+                        <input type="number" placeholder="Цена" class="item-price" required>
+                        <input type="number" placeholder="Шанс выпадения" class="item-chance" required>
+                    </div>
+                </div>
+                <button type="button" onclick="addCaseItem()">Добавить предмет</button>
+                <button type="submit">Создать кейс</button>
+            </form>
+        </div>
+
+        <div id="wheelTab" class="tab-content">
+            <h2>Управление колесом фортуны</h2>
+            <form id="wheelForm">
+                <div class="form-group">
+                    <input type="text" id="wheelName" placeholder="Название колеса" required>
+                </div>
+                <h3>Секторы колеса</h3>
+                <div id="wheelSegments">
+                    <div class="wheel-segment">
+                        <input type="text" placeholder="Название приза" class="segment-name" required>
+                        <input type="text" placeholder="URL изображения" class="segment-image" required>
+                        <input type="number" placeholder="Цена" class="segment-price" required>
+                        <input type="number" placeholder="Шанс выпадения" class="segment-chance" required>
+                        <input type="color" class="segment-color" value="#ff6b6b">
+                    </div>
+                </div>
+                <button type="button" onclick="addWheelSegment()">Добавить сектор</button>
+                <button type="submit">Обновить колесо</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab + 'Tab').classList.add('active');
+            });
+        });
+
+        function addCaseItem() {
+            const container = document.getElementById('caseItems');
+            const item = document.createElement('div');
+            item.className = 'case-item';
+            item.innerHTML = `
+                <input type="text" placeholder="Название предмета" class="item-name" required>
+                <input type="text" placeholder="URL изображения" class="item-image" required>
+                <input type="number" placeholder="Цена" class="item-price" required>
+                <input type="number" placeholder="Шанс выпадения" class="item-chance" required>
+                <button type="button" onclick="this.parentNode.remove()">Удалить</button>
+            `;
+            container.appendChild(item);
+        }
+
+        function addWheelSegment() {
+            const container = document.getElementById('wheelSegments');
+            const segment = document.createElement('div');
+            segment.className = 'wheel-segment';
+            segment.innerHTML = `
+                <input type="text" placeholder="Название приза" class="segment-name" required>
+                <input type="text" placeholder="URL изображения" class="segment-image" required>
+                <input type="number" placeholder="Цена" class="segment-price" required>
+                <input type="number" placeholder="Шанс выпадения" class="segment-chance" required>
+                <input type="color" class="segment-color" value="#ff6b6b">
+                <button type="button" onclick="this.parentNode.remove()">Удалить</button>
+            `;
+            container.appendChild(segment);
+        }
+
+        document.getElementById('caseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // Implementation for saving case data
+            alert('Функция сохранения кейсов будет реализована на бэкенде');
+        });
+
+        document.getElementById('wheelForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // Implementation for saving wheel data
+            alert('Функция сохранения колеса будет реализована на бэкенде');
+        });
+    </script>
+</body>
+</html>

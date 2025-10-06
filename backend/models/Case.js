@@ -1,22 +1,50 @@
 const mongoose = require('mongoose');
 
 const caseItemSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    value: Number,
-    rarity: String,
-    chance: Number // 1-100
+  name: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  dropChance: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 100
+  },
+  caseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Case'
+  }
 });
 
 const caseSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    price: Number,
-    items: [caseItemSchema],
-    isActive: { type: Boolean, default: true }
+  name: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  items: [caseItemSchema],
+  isActive: {
+    type: Boolean,
+    default: true
+  }
+}, {
+  timestamps: true
 });
 
-module.exports = {
-    Case: mongoose.model('Case', caseSchema),
-    CaseItem: mongoose.model('CaseItem', caseItemSchema)
-};
+module.exports = mongoose.model('Case', caseSchema);

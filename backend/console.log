@@ -1,0 +1,262 @@
+=== NAKAWIN CASINO LOG ===
+Started: 2025-10-06T15:04:13.251Z
+
+[2025-10-06T15:04:13.405Z] [INFO] Server running on port 3000
+[2025-10-06T15:04:13.406Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T15:04:21.213Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:04:21.226Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:04:21.378Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:04:31.708Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:04:35.269Z] [CASE_OPEN] CASE_OPEN: hizzex - Базовый кейс -> Обычный предмет Price: 50, New Balance: 2896
+[2025-10-06T15:05:08.787Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:05:08.807Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:05:08.996Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:05:13.198Z] [CASE_OPEN] CASE_OPEN: hizzex - Премиум кейс -> Мифический артефакт Price: 2500, New Balance: 2396
+[2025-10-06T15:05:58.961Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T15:05:59.127Z] [INFO] Server running on port 3000
+[2025-10-06T15:05:59.127Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T15:06:01.885Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:06:02.036Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:06:02.356Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:06:14.619Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 150 BlackCoin Price: 150, New Balance: 2296
+[2025-10-06T15:07:04.861Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:04.875Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:05.033Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:09.805Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:09.809Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:09.966Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:16.193Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 150 BlackCoin Price: 150, New Balance: 2196
+[2025-10-06T15:07:28.365Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:28.368Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:28.541Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:29.062Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:29.065Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:29.230Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:29.530Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:29.533Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:29.714Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:29.718Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:29.858Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:29.864Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:29.876Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:30.015Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:30.030Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:30.166Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:30.182Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:30.319Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:30.336Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:30.467Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:30.479Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:30.621Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:30.641Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:30.771Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:30.815Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:30.921Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:30.949Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:30.978Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:31.006Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:31.239Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:31.524Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:33.630Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 150 BlackCoin for 150 ₽, New Balance: 2346
+[2025-10-06T15:07:33.950Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:35.414Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 150 BlackCoin for 150 ₽, New Balance: 2496
+[2025-10-06T15:07:35.728Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:36.028Z] [ERROR] Item not found for selling: 68e3dae69abf9c3bb40bc1ee
+[2025-10-06T15:07:37.201Z] [USER_ACTION] USER: hizzex - SOLD_ITEM Мифический артефакт for 2500 ₽, New Balance: 4996
+[2025-10-06T15:07:37.567Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:40.300Z] [USER_ACTION] USER: hizzex - SOLD_ITEM Обычный предмет for 50 ₽, New Balance: 5046
+[2025-10-06T15:07:40.621Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:07:49.908Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:07:49.911Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:07:50.213Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:08:40.207Z] [INFO] Wheel data sent with 9 segments
+[2025-10-06T15:08:40.210Z] [INFO] Sent 2 cases to client
+[2025-10-06T15:08:40.357Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:18:39.031Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T15:18:41.876Z] [INFO] Connected to MongoDB
+[2025-10-06T15:18:43.371Z] [INFO] Cleared existing data
+[2025-10-06T15:18:43.548Z] [INFO] Added case: Осений кейс with 7 items
+[2025-10-06T15:18:43.709Z] [INFO] Wheel added successfully with 9 segments
+[2025-10-06T15:18:43.710Z] [INFO] All data initialized successfully
+[2025-10-06T15:18:48.759Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T15:18:48.885Z] [INFO] Server running on port 3000
+[2025-10-06T15:18:48.886Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T15:18:55.174Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:18:55.317Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:18:59.663Z] [USER_ACTION] USER: hizzex - LOGGED_IN Balance: 5046
+[2025-10-06T15:19:03.775Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:19:03.936Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:19:07.626Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 600 BlackCoins Index: 4, Price: 800, New Balance: 5045
+[2025-10-06T15:19:30.924Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 100 BlackCoins Index: 0, Price: 100, New Balance: 5044
+[2025-10-06T15:20:17.018Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:20:38.016Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 4944
+[2025-10-06T15:20:50.170Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:20:50.327Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:20:52.433Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 150 BlackCoin Price: 150, New Balance: 4844
+[2025-10-06T15:21:05.441Z] [USER_ACTION] USER: hizzex - LOGGED_IN Balance: 4844
+[2025-10-06T15:21:08.046Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:21:08.198Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:21:09.658Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:21:13.676Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 150 BlackCoin for 150 ₽, New Balance: 4994
+[2025-10-06T15:21:13.980Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:21:15.238Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 100 BlackCoin for 50 ₽, New Balance: 5044
+[2025-10-06T15:21:15.528Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:21:16.319Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 100 BlackCoins for 100 ₽, New Balance: 5144
+[2025-10-06T15:21:16.623Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:21:17.482Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 600 BlackCoins for 800 ₽, New Balance: 5944
+[2025-10-06T15:21:17.798Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:21:20.385Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 2000 BlackCoins Index: 7, Price: 5000, New Balance: 5943
+[2025-10-06T15:22:05.418Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 5843
+[2025-10-06T15:23:30.719Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 200 BlackCoins Index: 1, Price: 200, New Balance: 5842
+[2025-10-06T15:23:45.434Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 2000 BlackCoins Index: 7, Price: 5000, New Balance: 5841
+[2025-10-06T15:23:58.336Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:01.139Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 2000 BlackCoins for 5000 ₽, New Balance: 10841
+[2025-10-06T15:24:01.433Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:02.721Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 200 BlackCoins for 200 ₽, New Balance: 11041
+[2025-10-06T15:24:03.043Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:04.440Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 100 BlackCoin for 50 ₽, New Balance: 11091
+[2025-10-06T15:24:04.731Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:05.907Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 2000 BlackCoins for 5000 ₽, New Balance: 16091
+[2025-10-06T15:24:06.203Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:06.506Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:06.655Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:07.490Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:07.631Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:08.041Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:08.183Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:08.439Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:08.580Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:08.742Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:08.884Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:08.937Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:09.114Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:09.306Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:09.315Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:09.451Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:10.336Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:11.723Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:11.870Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:12.740Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:12.780Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:13.337Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:13.812Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:14.436Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:14.582Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:27.797Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:27.955Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:27.966Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:28.122Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:28.244Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:28.247Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:28.387Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:28.392Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:28.550Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:28.554Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:28.705Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:28.721Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:28.860Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:28.872Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:28.953Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.038Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:29.081Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:29.086Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.230Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.247Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:29.341Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.401Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:29.496Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.506Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:29.647Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:29.652Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.756Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.848Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:29.897Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:29.920Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.024Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.042Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.153Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.238Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.310Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.332Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.436Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.442Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.586Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.589Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.636Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.681Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.732Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.826Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:30.843Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:30.962Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:31.110Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:31.134Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:31.255Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:31.257Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:31.273Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:31.373Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:31.402Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:31.515Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:31.539Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:31.689Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:24:31.837Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:24:31.977Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:25:53.590Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:25:53.754Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:25:56.771Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:25:56.918Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:25:57.147Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:25:57.288Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:25:58.017Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:25:58.151Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:25:58.911Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:25:59.052Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:01.822Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:01.956Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:02.935Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:03.101Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:06.279Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 200 BlackCoin Price: 300, New Balance: 15991
+[2025-10-06T15:26:13.863Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 300 BlackCoins Index: 2, Price: 300, New Balance: 15990
+[2025-10-06T15:26:20.041Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:20.196Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:20.900Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:21.040Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:21.334Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:21.469Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:21.522Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:21.697Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:21.705Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:21.808Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:21.857Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:21.975Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:21.983Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:22.125Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:22.129Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:22.252Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:22.296Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:22.437Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:22.443Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:22.563Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:22.599Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:22.681Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:22.716Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:22.818Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:26:22.843Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:26:23.030Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:28:19.965Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T15:28:20.078Z] [INFO] Server running on port 3000
+[2025-10-06T15:28:20.079Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T15:28:25.425Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:28:25.593Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:28:30.831Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 15890
+[2025-10-06T15:28:44.701Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 600 BlackCoins Index: 4, Price: 800, New Balance: 15889
+[2025-10-06T15:29:11.699Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:29:11.863Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T15:29:14.113Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 15789
+[2025-10-06T15:44:57.265Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T15:44:57.437Z] [INFO] Server running on port 3000
+[2025-10-06T15:44:57.438Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T15:45:00.769Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:45:08.276Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:45:24.768Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:48:15.108Z] [INFO] Sent 1 cases to client
+[2025-10-06T15:48:47.182Z] [INFO] Sent 1 cases to client
