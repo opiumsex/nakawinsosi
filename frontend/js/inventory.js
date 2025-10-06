@@ -1,13 +1,13 @@
 class Inventory {
     constructor() {
         this.items = [];
-        this.selectedItem = null;
         this.init();
     }
 
     async init() {
         await this.loadInventory();
         this.setupEventListeners();
+        console.log('Inventory system initialized');
     }
 
     async loadInventory() {
@@ -32,8 +32,13 @@ class Inventory {
         const grid = document.getElementById('inventoryGrid');
         const itemsCount = document.getElementById('itemsCount');
         
+        if (!grid) return;
+        
         grid.innerHTML = '';
-        itemsCount.textContent = this.items.length;
+        
+        if (itemsCount) {
+            itemsCount.textContent = this.items.length;
+        }
 
         if (this.items.length === 0) {
             grid.innerHTML = '<div class="empty-inventory">Инвентарь пуст</div>';
@@ -43,7 +48,6 @@ class Inventory {
         this.items.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'inventory-item';
-            itemElement.setAttribute('data-item-id', item._id);
             itemElement.innerHTML = `
                 <div class="item-content">
                     <img src="${item.item.image}" alt="${item.item.name}" onerror="this.src='/images/items/default.png'">
@@ -51,11 +55,20 @@ class Inventory {
                     <p class="item-price">${item.item.price} ₽</p>
                 </div>
                 <div class="item-actions">
-                    <button class="btn-secondary sell-btn" onclick="inventory.sellItem('${item._id}')">Продать</button>
-                    <button class="btn-primary withdraw-btn" onclick="inventory.withdrawItem('${item._id}')">Вывести</button>
+                    <button class="btn-secondary sell-btn" data-id="${item._id}">Продать</button>
+                    <button class="btn-primary withdraw-btn" data-id="${item._id}">Вывести</button>
                 </div>
             `;
             grid.appendChild(itemElement);
+        });
+
+        // Add event listeners
+        document.querySelectorAll('.sell-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.sellItem(e.target.dataset.id));
+        });
+
+        document.querySelectorAll('.withdraw-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.withdrawItem(e.target.dataset.id));
         });
     }
 
@@ -96,12 +109,6 @@ class Inventory {
             if (response.ok) {
                 showNotification('Запрос на вывод отправлен', 'success');
                 await this.loadInventory();
-                
-                console.log(`=== WITHDRAWAL REQUEST ===`);
-                console.log(`User: ${auth.user.username}`);
-                console.log(`Item: ${this.items.find(item => item._id === itemId)?.item.name}`);
-                console.log(`Timestamp: ${new Date().toISOString()}`);
-                console.log(`========================`);
             } else {
                 showNotification(data.message, 'error');
             }
@@ -112,10 +119,11 @@ class Inventory {
     }
 
     setupEventListeners() {
-        document.querySelector('[data-tab="inventory"]').addEventListener('click', () => {
-            this.loadInventory();
-        });
+        const inventoryTab = document.querySelector('[data-tab="inventory"]');
+        if (inventoryTab) {
+            inventoryTab.addEventListener('click', () => {
+                this.loadInventory();
+            });
+        }
     }
 }
-
-const inventory = new Inventory();

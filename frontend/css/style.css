@@ -322,6 +322,36 @@ img {
     display: none; /* Скрываем в продакшене */
 }
 
+/* Hit Zones */
+.hit-zone {
+    position: absolute;
+    pointer-events: none;
+    z-index: 15;
+    border: 2px dashed rgba(0, 255, 255, 0.5);
+    background: rgba(0, 255, 255, 0.1);
+}
+
+#hitZoneCase {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 120px;
+}
+
+#hitZoneWheel {
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+}
+
+/* По умолчанию скрываем зоны */
+.hit-zone {
+    display: none;
+}
+
 .hit-zone-wheel {
     position: absolute;
     top: -30px;

@@ -12,9 +12,7 @@ class Cases {
         await this.loadCases();
         this.setupEventListeners();
         this.setupHitZone();
-        
-        // Сохраняем инстанс глобально для переинициализации
-        window.casesInstance = this;
+        console.log('Cases system initialized');
     }
 
     setupHitZone() {
@@ -26,7 +24,6 @@ class Cases {
 
     async loadCases() {
         try {
-            console.log('Loading cases...');
             const response = await fetch('/api/cases');
             
             if (!response.ok) {
@@ -34,8 +31,6 @@ class Cases {
             }
             
             this.cases = await response.json();
-            console.log('Cases loaded:', this.cases);
-            
             this.renderCases();
             
         } catch (error) {
@@ -67,7 +62,6 @@ class Cases {
             `;
             
             caseElement.addEventListener('click', () => {
-                console.log('Case clicked:', caseItem.name);
                 this.openCaseModal(caseItem);
             });
             
@@ -96,15 +90,17 @@ class Cases {
         // Clear previous items
         itemsScroll.innerHTML = '';
         
-        // Create extended items array for smooth scrolling
+        // Create extended items array for smooth scrolling with multiple copies
         const extendedItems = [];
-        const copies = 10;
+        const copies = 5; // 5 копий для длинной прокрутки
         
         for (let i = 0; i < copies; i++) {
+            // Перемешиваем предметы для каждой копии
             const shuffled = [...caseItem.items].sort(() => Math.random() - 0.5);
             extendedItems.push(...shuffled);
         }
 
+        // Добавляем предметы в скролл
         extendedItems.forEach((item, index) => {
             const itemElement = document.createElement('div');
             itemElement.className = 'scroll-item';
@@ -142,8 +138,6 @@ class Cases {
         this.isOpening = true;
 
         try {
-            console.log('Opening case:', this.currentCase._id);
-            
             const response = await fetch(`/api/cases/open/${this.currentCase._id}`, {
                 method: 'POST',
                 headers: auth.getAuthHeaders()
@@ -155,8 +149,6 @@ class Cases {
             }
 
             const data = await response.json();
-            console.log('Case opened successfully:', data);
-
             this.animateCaseOpening(data);
 
         } catch (error) {
@@ -174,21 +166,35 @@ class Cases {
             return;
         }
 
-        const scrollDuration = 7000;
+        const scrollDuration = 7000; // 7 секунд анимации
         const startTime = Date.now();
         const startScroll = itemsScroll.scrollLeft;
         
-        // Находим элемент для анимации
+        // Находим ВСЕ элементы с выигрышным предметом
         const allItems = itemsScroll.querySelectorAll('.scroll-item');
         let targetItem = null;
+        let targetIndex = -1;
 
         // Ищем элемент который будет в зоне попадания после прокрутки
         for (let i = 0; i < allItems.length; i++) {
             const item = allItems[i];
             const itemName = item.getAttribute('data-item-name');
             if (itemName === data.wonItem.name) {
-                targetItem = item;
-                break;
+                // Проверяем будет ли этот предмет в зоне попадания после прокрутки
+                const approximatePosition = i * (item.offsetWidth + 32); // width + gap
+                if (approximatePosition > itemsScroll.scrollWidth * 0.6) {
+                    targetItem = item;
+                    targetIndex = i;
+                    break;
+                }
+            }
+        }
+
+        // Если не нашли подходящий, берем любой выигрышный предмет из второй половины
+        if (!targetItem) {
+            const wonItems = itemsScroll.querySelectorAll(`[data-item-name="${data.wonItem.name}"]`);
+            if (wonItems.length > 0) {
+                targetItem = wonItems[Math.floor(wonItems.length / 2)];
             }
         }
 
@@ -199,12 +205,13 @@ class Cases {
             return;
         }
 
-        // Рассчитываем позицию для прокрутки
+        // Рассчитываем точную позицию для прокрутки чтобы предмет оказался в зоне попадания
         const itemRect = targetItem.getBoundingClientRect();
         const containerRect = itemsScroll.getBoundingClientRect();
         const hitZoneRect = this.hitZone.getBoundingClientRect();
         
-        const targetScroll = itemsScroll.scrollLeft + (itemRect.left - containerRect.left) - (hitZoneRect.width / 2) + (itemRect.width / 2);
+        // Вычисляем смещение чтобы предмет оказался точно в центре зоны попадания
+        const targetScroll = itemsScroll.scrollLeft + (itemRect.left - containerRect.left) - (hitZoneRect.left - containerRect.left) - (hitZoneRect.width / 2) + (itemRect.width / 2);
 
         console.log(`Animating to won item: ${data.wonItem.name}`);
 
@@ -213,13 +220,17 @@ class Cases {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / scrollDuration, 1);
             
+            // Сложная функция easing для реалистичной анимации
             let easedProgress;
             if (progress < 0.6) {
+                // Быстрое ускорение в начале
                 easedProgress = this.easeInQuart(progress * (1/0.6)) * 0.6;
             } else if (progress < 0.9) {
+                // Постепенное замедление
                 const midProgress = (progress - 0.6) / 0.3;
                 easedProgress = 0.6 + this.easeOutCubic(midProgress) * 0.3;
             } else {
+                // Очень медленное завершение
                 const finalProgress = (progress - 0.9) / 0.1;
                 easedProgress = 0.9 + this.easeOutElastic(finalProgress) * 0.1;
             }
@@ -227,12 +238,22 @@ class Cases {
             const currentScroll = startScroll + (targetScroll - startScroll) * easedProgress;
             itemsScroll.scrollLeft = currentScroll;
 
+            // Визуальные эффекты во время анимации
+            if (progress < 0.9) {
+                itemsScroll.style.filter = `brightness(${1 + progress * 0.5})`;
+            } else {
+                itemsScroll.style.filter = 'brightness(1.5)';
+            }
+
             if (progress < 1) {
                 this.scrollAnimationId = requestAnimationFrame(animate);
             } else {
-                // ФИКС: Запрещаем дальнейшую прокрутку
-                itemsScroll.style.overflow = 'hidden';
+                // Анимация завершена - фиксируем позицию
                 itemsScroll.scrollLeft = targetScroll;
+                itemsScroll.style.filter = 'brightness(1)';
+                
+                // Блокируем дальнейшую прокрутку
+                itemsScroll.style.overflow = 'hidden';
                 
                 // Подсвечиваем выигрышный предмет
                 this.highlightWonItem(targetItem);
@@ -247,14 +268,16 @@ class Cases {
         animate();
     }
 
+    // Подсветка выигрышного предмета
     highlightWonItem(itemElement) {
         itemElement.style.transform = 'scale(1.2)';
-        itemElement.style.boxShadow = '0 0 30px gold';
+        itemElement.style.boxShadow = '0 0 30px gold, 0 0 50px var(--accent-color)';
         itemElement.style.zIndex = '10';
         itemElement.style.transition = 'all 0.5s ease';
-        
-        // Добавляем анимацию пульсации
         itemElement.style.animation = 'pulse 1s infinite';
+        
+        // Добавляем свечение
+        itemElement.style.border = '2px solid gold';
     }
 
     easeInQuart(t) {
@@ -299,6 +322,8 @@ class Cases {
                 item.style.boxShadow = '';
                 item.style.zIndex = '';
                 item.style.animation = '';
+                item.style.border = '';
+                item.style.transition = '';
             });
         }
         this.resetOpenButton();
@@ -351,18 +376,28 @@ class Cases {
     }
 
     setupEventListeners() {
-        document.getElementById('openCaseBtn').addEventListener('click', () => this.openCase());
+        const openCaseBtn = document.getElementById('openCaseBtn');
+        if (openCaseBtn) {
+            openCaseBtn.addEventListener('click', () => this.openCase());
+        }
         
         // Сбрасываем модалку при закрытии
-        document.querySelector('#caseModal .close-btn').addEventListener('click', () => {
-            if (!this.isOpening) {
+        const closeBtn = document.querySelector('#caseModal .close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                if (!this.isOpening) {
+                    this.resetCaseModal();
+                    closeModal('caseModal');
+                }
+            });
+        }
+        
+        // Закрытие при клике вне модалки
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'caseModal' && !this.isOpening) {
                 this.resetCaseModal();
                 closeModal('caseModal');
             }
         });
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    new Cases();
-});

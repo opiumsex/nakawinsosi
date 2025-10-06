@@ -1,3 +1,27 @@
+// Глобальные функции для модальных окон
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+// Глобальная функция для уведомлений
+function showNotification(message, type = 'info') {
+    const notifications = new Notifications();
+    notifications.show(message, type);
+}
+
+// Глобальный объект auth
+let auth = null;
+
 class MainApp {
     constructor() {
         this.init();
@@ -8,8 +32,39 @@ class MainApp {
         this.setupDeposit();
         this.setupTabContent();
         this.createSnowflakes();
+        this.initializeAuth();
         
         window.mainApp = this;
+    }
+
+    initializeAuth() {
+        // Инициализируем auth и делаем его глобальным
+        auth = new Auth();
+        window.auth = auth;
+        
+        // Инициализируем остальные системы после auth
+        setTimeout(() => {
+            this.initializeAppSystems();
+        }, 100);
+    }
+
+    initializeAppSystems() {
+        // Инициализируем кейсы
+        if (!window.casesInstance) {
+            window.casesInstance = new Cases();
+        }
+        
+        // Инициализируем рулетку
+        if (!window.wheelInstance) {
+            window.wheelInstance = new Wheel();
+        }
+        
+        // Инициализируем инвентарь
+        if (!window.inventoryInstance) {
+            window.inventoryInstance = new Inventory();
+        }
+        
+        console.log('All app systems initialized');
     }
 
     setupNavigation() {
@@ -61,20 +116,26 @@ class MainApp {
         const depositBtn = document.getElementById('depositBtn');
         const confirmBtn = document.getElementById('confirmDeposit');
 
-        depositBtn.addEventListener('click', () => {
-            showModal('depositModal');
-        });
+        if (depositBtn) {
+            depositBtn.addEventListener('click', () => {
+                showModal('depositModal');
+            });
+        }
 
-        confirmBtn.addEventListener('click', () => {
-            closeModal('depositModal');
-            showNotification('Запрос на пополнение отправлен', 'success');
-            
-            console.log(`=== DEPOSIT CONFIRMATION ===`);
-            console.log(`User: ${auth.user.username}`);
-            console.log(`Balance: ${auth.user.balance}`);
-            console.log(`Timestamp: ${new Date().toISOString()}`);
-            console.log(`===========================`);
-        });
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', () => {
+                closeModal('depositModal');
+                showNotification('Запрос на пополнение отправлен', 'success');
+                
+                if (auth && auth.user) {
+                    console.log(`=== DEPOSIT CONFIRMATION ===`);
+                    console.log(`User: ${auth.user.username}`);
+                    console.log(`Balance: ${auth.user.balance}`);
+                    console.log(`Timestamp: ${new Date().toISOString()}`);
+                    console.log(`===========================`);
+                }
+            });
+        }
     }
 
     setupTabContent() {
@@ -86,13 +147,13 @@ class MainApp {
         snowflakesContainer.className = 'snowflakes';
         document.body.appendChild(snowflakesContainer);
 
-        const snowflakeCount = 50; // Reduced count for subtle effect
+        const snowflakeCount = 50;
 
         for (let i = 0; i < snowflakeCount; i++) {
             setTimeout(() => {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
-                snowflake.innerHTML = '.';
+                snowflake.innerHTML = '❄';
                 snowflake.style.left = Math.random() * 100 + 'vw';
                 snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
                 snowflake.style.animationDelay = Math.random() * 5 + 's';
@@ -100,7 +161,6 @@ class MainApp {
                 snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
                 snowflakesContainer.appendChild(snowflake);
 
-                // Remove snowflake after animation
                 setTimeout(() => {
                     if (snowflake.parentNode) {
                         snowflake.parentNode.removeChild(snowflake);
@@ -109,7 +169,6 @@ class MainApp {
             }, i * 200);
         }
 
-        // Continuously create snowflakes
         setInterval(() => {
             this.createSingleSnowflake(snowflakesContainer);
         }, 500);
@@ -118,7 +177,7 @@ class MainApp {
     createSingleSnowflake(container) {
         const snowflake = document.createElement('div');
         snowflake.className = 'snowflake';
-        snowflake.innerHTML = '.';
+        snowflake.innerHTML = '❄';
         snowflake.style.left = Math.random() * 100 + 'vw';
         snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
         snowflake.style.opacity = Math.random() * 0.3 + 0.1;

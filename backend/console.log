@@ -260,3 +260,79 @@ Started: 2025-10-06T15:04:13.251Z
 [2025-10-06T15:45:24.768Z] [INFO] Sent 1 cases to client
 [2025-10-06T15:48:15.108Z] [INFO] Sent 1 cases to client
 [2025-10-06T15:48:47.182Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:03:01.829Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T16:03:01.966Z] [INFO] Server running on port 3000
+[2025-10-06T16:03:01.967Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T16:03:10.568Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:03:10.750Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:03:16.146Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 15739
+[2025-10-06T16:03:26.042Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 200 BlackCoins Index: 1, Price: 200, New Balance: 15738
+[2025-10-06T16:03:37.364Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 100 BlackCoins Index: 0, Price: 100, New Balance: 15737
+[2025-10-06T16:03:49.754Z] [INFO] Sent 7 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:03:52.227Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 100 BlackCoins for 100 ₽, New Balance: 15837
+[2025-10-06T16:03:52.538Z] [INFO] Sent 6 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:03:53.601Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 200 BlackCoins for 200 ₽, New Balance: 16037
+[2025-10-06T16:03:53.938Z] [INFO] Sent 5 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:03:56.000Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 100 BlackCoin for 50 ₽, New Balance: 16087
+[2025-10-06T16:03:56.082Z] [ERROR] Item not found for selling: 68e3e8430a7d6ed5174c554d
+[2025-10-06T16:03:56.313Z] [INFO] Sent 4 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:03:56.508Z] [ERROR] Item not found for selling: 68e3e8430a7d6ed5174c554d
+[2025-10-06T16:03:57.258Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 600 BlackCoins for 800 ₽, New Balance: 16887
+[2025-10-06T16:03:57.582Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:03:59.021Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 100 BlackCoin for 50 ₽, New Balance: 16937
+[2025-10-06T16:03:59.327Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:04:00.308Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 300 BlackCoins for 300 ₽, New Balance: 17237
+[2025-10-06T16:04:00.639Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:04:01.774Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 200 BlackCoin for 300 ₽, New Balance: 17537
+[2025-10-06T16:04:02.115Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:04:08.969Z] [USER_ACTION] USER: hizzex - LOGGED_IN Balance: 17537
+[2025-10-06T16:04:13.870Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:04:14.015Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:04:14.891Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:04:15.204Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:05:42.284Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T16:05:42.428Z] [INFO] Server running on port 3000
+[2025-10-06T16:05:42.429Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T16:05:45.624Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:05:46.066Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:05:47.313Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:05:48.159Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 17437
+[2025-10-06T16:05:55.066Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:05:55.260Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:05:55.339Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:05:57.377Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 17337
+[2025-10-06T16:06:07.169Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:06:11.538Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:06:11.696Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:06:11.829Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:06:13.969Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 100 BlackCoin Price: 50, New Balance: 17237
+[2025-10-06T16:07:09.247Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:07:09.413Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:07:09.499Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:07:10.731Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:07:10.878Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:07:11.001Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:07:11.211Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:07:11.359Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:07:11.473Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:07:11.933Z] [INFO] Sent 3 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:07:13.089Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 100 BlackCoin for 50 ₽, New Balance: 17287
+[2025-10-06T16:07:13.258Z] [ERROR] Item not found for selling: 68e3e8e5f83cb87fd7410e3a
+[2025-10-06T16:07:13.414Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:07:14.730Z] [WITHDRAWAL] WITHDRAWAL: hizzex - 100 BlackCoin Price: 50, Balance: 17287
+[2025-10-06T16:07:15.064Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:07:17.917Z] [WITHDRAWAL] WITHDRAWAL: hizzex - 100 BlackCoin Price: 50, Balance: 17287
+[2025-10-06T16:07:18.301Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:11:53.896Z] [INFO] === APPLICATION RESTARTED ===
+[2025-10-06T16:11:54.014Z] [INFO] Server running on port 3000
+[2025-10-06T16:11:54.015Z] [INFO] Nakawin Casino backend started successfully
+[2025-10-06T16:12:00.481Z] [INFO] Sent 1 cases to client
+[2025-10-06T16:12:00.652Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:12:09.889Z] [CASE_OPEN] CASE_OPEN: hizzex - Осений кейс -> 150 BlackCoin Price: 150, New Balance: 17187
+[2025-10-06T16:12:23.768Z] [WHEEL_SPIN] WHEEL_SPIN: hizzex -> 500 BlackCoins Index: 3, Price: 500, New Balance: 17186
+[2025-10-06T16:12:36.919Z] [INFO] Sent 2 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:12:38.238Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 150 BlackCoin for 150 ₽, New Balance: 17336
+[2025-10-06T16:12:38.349Z] [ERROR] Item not found for selling: 68e3ea594fc0ee0f738d022b
+[2025-10-06T16:12:38.620Z] [INFO] Sent 1 inventory items to user 68e3c24eba142996305cb938
+[2025-10-06T16:12:39.868Z] [USER_ACTION] USER: hizzex - SOLD_ITEM 500 BlackCoins for 500 ₽, New Balance: 17836
+[2025-10-06T16:12:40.210Z] [INFO] Sent 0 inventory items to user 68e3c24eba142996305cb938

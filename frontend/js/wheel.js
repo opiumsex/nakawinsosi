@@ -10,13 +10,10 @@ class Wheel {
     }
 
     async init() {
-        console.log('Initializing Wheel...');
         await this.loadWheel();
         this.setupEventListeners();
         this.setupHitZone();
-        
-        // Сохраняем инстанс глобально
-        window.wheelInstance = this;
+        console.log('Wheel system initialized');
     }
 
     setupHitZone() {
@@ -28,7 +25,6 @@ class Wheel {
 
     async loadWheel() {
         try {
-            console.log('Loading wheel data...');
             const response = await fetch('/api/wheel');
             
             if (!response.ok) {
@@ -36,19 +32,14 @@ class Wheel {
             }
             
             this.wheel = await response.json();
-            console.log('Wheel loaded:', this.wheel);
             
             if (this.wheel && this.wheel.segments) {
-                console.log(`Wheel has ${this.wheel.segments.length} segments`);
                 this.drawWheel();
                 
                 const wheelCostElement = document.getElementById('wheelCost');
                 if (wheelCostElement) {
                     wheelCostElement.textContent = this.wheel.spinCost || 250;
                 }
-            } else {
-                console.error('Wheel data is invalid:', this.wheel);
-                showNotification('Ошибка: данные колеса не загружены', 'error');
             }
             
         } catch (error) {
@@ -58,11 +49,7 @@ class Wheel {
     }
 
     drawWheel() {
-        if (!this.wheel || !this.wheel.segments || this.wheel.segments.length === 0) {
-            console.error('Cannot draw wheel: no segments data');
-            this.createDefaultWheel();
-            return;
-        }
+        if (!this.wheel || !this.wheel.segments) return;
 
         const segments = this.wheel.segments;
         const totalChance = segments.reduce((sum, seg) => sum + seg.dropChance, 0);
@@ -120,29 +107,6 @@ class Wheel {
         this.ctx.textAlign = 'center';
         this.ctx.textBaseline = 'middle';
         this.ctx.fillText('GO', centerX, centerY);
-        
-        console.log('Wheel drawn successfully');
-    }
-
-    createDefaultWheel() {
-        console.log('Creating default wheel visualization');
-        const centerX = this.canvas.width / 2;
-        const centerY = this.canvas.height / 2;
-        const radius = Math.min(centerX, centerY) - 10;
-
-        this.ctx.beginPath();
-        this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-        this.ctx.fillStyle = '#1a1a1a';
-        this.ctx.fill();
-        this.ctx.strokeStyle = 'gold';
-        this.ctx.lineWidth = 3;
-        this.ctx.stroke();
-
-        this.ctx.fillStyle = '#ff4444';
-        this.ctx.font = 'bold 16px Arial';
-        this.ctx.textAlign = 'center';
-        this.ctx.textBaseline = 'middle';
-        this.ctx.fillText('No Data', centerX, centerY);
     }
 
     getSegmentColor(index) {
@@ -155,13 +119,9 @@ class Wheel {
     }
 
     async spinWheel() {
-        if (this.isSpinning) {
-            console.log('Wheel is already spinning');
-            return;
-        }
+        if (this.isSpinning) return;
 
         if (!this.wheel) {
-            console.error('Cannot spin: wheel data not loaded');
             showNotification('Ошибка: данные колеса не загружены', 'error');
             return;
         }
@@ -174,8 +134,6 @@ class Wheel {
         }
 
         try {
-            console.log('Sending spin request...');
-            
             const response = await fetch('/api/wheel/spin', {
                 method: 'POST',
                 headers: auth.getAuthHeaders()
@@ -187,8 +145,6 @@ class Wheel {
             }
 
             const data = await response.json();
-            console.log('Spin successful:', data);
-
             this.animateSpin(data);
 
         } catch (error) {
@@ -200,7 +156,6 @@ class Wheel {
 
     animateSpin(data) {
         if (!this.wheel || !this.wheel.segments) {
-            console.error('Cannot animate: wheel segments not available');
             this.resetSpinButton();
             return;
         }
@@ -210,28 +165,40 @@ class Wheel {
         const spinDuration = 7000;
         const startTime = Date.now();
         
+        // Точный расчет конечного вращения с учетом зоны попадания
         const segmentAngle = 360 / segments.length;
         const targetSegmentIndex = data.segmentIndex;
         
+        // Угол центра выигрышного сегмента
         const wonSegmentCenterAngle = targetSegmentIndex * segmentAngle + segmentAngle / 2;
-        const rotationNeeded = -90 - wonSegmentCenterAngle;
         
+        // Рассчитываем вращение так чтобы выигрышный сегмент оказался под стрелкой
+        // Стрелка находится вверху (-90 градусов)
+        // Добавляем небольшое смещение для точного позиционирования в зоне
+        const rotationNeeded = -90 - wonSegmentCenterAngle + 2; // +2 градуса для точности
+        
+        // Добавляем полные обороты для эффекта
         const fullRotations = 5;
         const targetRotation = this.currentRotation + fullRotations * 360 + rotationNeeded;
 
-        console.log(`Animation: segment ${targetSegmentIndex} (${segments[targetSegmentIndex].name})`);
+        console.log(`Wheel animation: segment ${targetSegmentIndex} (${segments[targetSegmentIndex].name})`);
+        console.log(`Target rotation: ${targetRotation}°`);
 
         const animate = () => {
             const currentTime = Date.now();
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / spinDuration, 1);
             
+            // Сложная функция easing для реалистичного вращения
             let easedProgress;
             if (progress < 0.3) {
+                // Быстрое ускорение
                 easedProgress = this.easeInQuart(progress * (1/0.3)) * 0.3;
             } else if (progress < 0.8) {
+                // Постоянная скорость
                 easedProgress = 0.3 + (progress - 0.3) * 0.5;
             } else {
+                // Медленное замедление с bounce эффектом
                 const decelProgress = (progress - 0.8) / 0.2;
                 easedProgress = 0.8 + this.easeOutElastic(decelProgress) * 0.2;
             }
@@ -240,13 +207,23 @@ class Wheel {
             
             wheel.style.transform = `rotate(${rotation}deg)`;
 
+            // Визуальные эффекты во время вращения
+            if (progress < 0.9) {
+                const glowIntensity = 1 + Math.sin(progress * Math.PI * 10) * 0.3;
+                wheel.style.filter = `brightness(${glowIntensity}) hue-rotate(${rotation * 0.5}deg)`;
+            } else {
+                wheel.style.filter = 'brightness(1.2)';
+            }
+
             if (progress < 1) {
                 requestAnimationFrame(animate);
             } else {
-                // ФИКС: Запрещаем дальнейшее вращение
+                // Анимация завершена - фиксируем позицию
                 wheel.style.transform = `rotate(${targetRotation}deg)`;
                 this.currentRotation = targetRotation % 360;
+                wheel.style.filter = 'none';
                 
+                // Подсвечиваем выигрышный сегмент
                 this.highlightWonSegment(targetSegmentIndex);
                 
                 setTimeout(() => {
@@ -259,7 +236,9 @@ class Wheel {
         animate();
     }
 
+    // Подсветка выигрышного сегмента
     highlightWonSegment(segmentIndex) {
+        // Перерисовываем колесо с подсветкой
         this.drawWheel();
         
         const segments = this.wheel.segments;
@@ -268,6 +247,7 @@ class Wheel {
         const centerY = this.canvas.height / 2;
         const radius = Math.min(centerX, centerY) - 10;
 
+        // Вычисляем углы выигрышного сегмента
         let startAngle = 0;
         for (let i = 0; i < segmentIndex; i++) {
             startAngle += (segments[i].dropChance / totalChance) * 2 * Math.PI;
@@ -276,14 +256,22 @@ class Wheel {
         const sliceAngle = (segments[segmentIndex].dropChance / totalChance) * 2 * Math.PI;
         const endAngle = startAngle + sliceAngle;
 
+        // Рисуем подсветку поверх сегмента
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(centerX, centerY);
         this.ctx.arc(centerX, centerY, radius, startAngle, endAngle);
         this.ctx.closePath();
-        this.ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
+        this.ctx.fillStyle = 'rgba(255, 215, 0, 0.4)';
         this.ctx.fill();
+        
+        // Добавляем обводку
+        this.ctx.strokeStyle = 'gold';
+        this.ctx.lineWidth = 4;
+        this.ctx.stroke();
         this.ctx.restore();
+        
+        console.log(`Highlighted segment: ${segments[segmentIndex].name}`);
     }
 
     easeInQuart(t) {
@@ -358,7 +346,3 @@ class Wheel {
         }
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    new Wheel();
-});

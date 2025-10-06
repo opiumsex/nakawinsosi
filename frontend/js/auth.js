@@ -12,21 +12,41 @@ class Auth {
             this.showAuth();
         }
 
-        document.getElementById('loginForm').addEventListener('submit', (e) => this.handleLogin(e));
-        document.getElementById('registerForm').addEventListener('submit', (e) => this.handleRegister(e));
-        document.getElementById('showRegister').addEventListener('click', (e) => this.showRegisterForm(e));
-        document.getElementById('showLogin').addEventListener('click', (e) => this.showLoginForm(e));
-        
-        document.getElementById('logoutBtn').addEventListener('click', () => this.logout());
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+        }
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => this.handleRegister(e));
+        }
+        if (showRegister) {
+            showRegister.addEventListener('click', (e) => this.showRegisterForm(e));
+        }
+        if (showLogin) {
+            showLogin.addEventListener('click', (e) => this.showLoginForm(e));
+        }
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => this.logout());
+        }
     }
 
     showAuth() {
-        this.showModal('authModal');
+        showModal('authModal');
         document.getElementById('app').classList.add('hidden');
     }
 
     showApp() {
-        this.hideAllModals();
+        closeModal('authModal');
+        closeModal('registerModal');
         document.getElementById('app').classList.remove('hidden');
         this.updateUI();
         
@@ -35,64 +55,18 @@ class Auth {
         if (window.mainApp) {
             window.mainApp.showTab(currentTab);
         }
-        
-        // Инициализируем все системы после входа
-        this.initializeAppSystems();
-    }
-
-    initializeAppSystems() {
-        // Переинициализируем кейсы
-        if (window.casesInstance) {
-            window.casesInstance.loadCases();
-        } else {
-            window.casesInstance = new Cases();
-        }
-        
-        // Переинициализируем рулетку
-        if (window.wheelInstance) {
-            window.wheelInstance.loadWheel();
-        } else {
-            window.wheelInstance = new Wheel();
-        }
-        
-        // Переинициализируем инвентарь
-        if (window.inventoryInstance) {
-            window.inventoryInstance.loadInventory();
-        } else {
-            window.inventoryInstance = new Inventory();
-        }
     }
 
     showRegisterForm(e) {
         e.preventDefault();
-        this.hideModal('authModal');
-        this.showModal('registerModal');
+        closeModal('authModal');
+        showModal('registerModal');
     }
 
     showLoginForm(e) {
         e.preventDefault();
-        this.hideModal('registerModal');
-        this.showModal('authModal');
-    }
-
-    showModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('active');
-        }
-    }
-
-    hideModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.remove('active');
-        }
-    }
-
-    hideAllModals() {
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.classList.remove('active');
-        });
+        closeModal('registerModal');
+        showModal('authModal');
     }
 
     async handleLogin(e) {
@@ -119,7 +93,7 @@ class Auth {
                 this.showApp();
                 showNotification('Успешный вход! Добро пожаловать!', 'success');
                 
-                // Очищаем форму
+                // Clear form
                 document.getElementById('loginForm').reset();
             } else {
                 showNotification(data.message, 'error');
@@ -155,7 +129,7 @@ class Auth {
             const data = await response.json();
 
             if (response.ok) {
-                // Автоматически входим после регистрации
+                // Automatically login after registration
                 this.token = data.token;
                 this.user = data.user;
                 localStorage.setItem('token', this.token);
@@ -164,7 +138,7 @@ class Auth {
                 this.showApp();
                 showNotification('Регистрация успешна! Добро пожаловать!', 'success');
                 
-                // Очищаем форму
+                // Clear form
                 document.getElementById('registerForm').reset();
             } else {
                 showNotification(data.message, 'error');
@@ -178,6 +152,7 @@ class Auth {
         if (this.user) {
             const userNameElement = document.getElementById('userName');
             const userBalanceElement = document.getElementById('userBalance');
+            const logoutBtn = document.getElementById('logoutBtn');
             
             if (userNameElement) {
                 userNameElement.textContent = this.user.username;
@@ -185,9 +160,6 @@ class Auth {
             if (userBalanceElement) {
                 userBalanceElement.textContent = `${this.user.balance} ₽`;
             }
-            
-            // Показываем кнопку выхода
-            const logoutBtn = document.getElementById('logoutBtn');
             if (logoutBtn) {
                 logoutBtn.style.display = 'flex';
             }
@@ -207,8 +179,6 @@ class Auth {
     }
 
     logout() {
-        this.animateLogout();
-        
         showNotification('Выход из аккаунта...', 'info');
         
         setTimeout(() => {
@@ -230,39 +200,4 @@ class Auth {
             }, 500);
         }, 1000);
     }
-
-    animateLogout() {
-        const logoutBtn = document.getElementById('logoutBtn');
-        const app = document.getElementById('app');
-        
-        if (logoutBtn) {
-            this.createRippleEffect(logoutBtn);
-            logoutBtn.classList.add('bounce-out');
-        }
-        
-        if (app) {
-            app.classList.add('fade-out-up');
-        }
-    }
-
-    createRippleEffect(button) {
-        const ripple = document.createElement('span');
-        const rect = button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = event.clientX - rect.left - size / 2;
-        const y = event.clientY - rect.top - size / 2;
-        
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        ripple.classList.add('ripple');
-        
-        button.appendChild(ripple);
-        
-        setTimeout(() => {
-            ripple.remove();
-        }, 600);
-    }
 }
-
-const auth = new Auth();
